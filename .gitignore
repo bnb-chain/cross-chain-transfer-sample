@@ -10,6 +10,8 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
-
+java/cross-chain-transfer/.idea/*
+java/cross-chain-transfer/logs/*
+java/cross-chain-transfer/target/*
 # Dependency directories (remove the comment below to include it)
 # vendor/
