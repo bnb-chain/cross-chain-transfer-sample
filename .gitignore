@@ -13,5 +13,7 @@
 java/cross-chain-transfer/.idea/*
 java/cross-chain-transfer/logs/*
 java/cross-chain-transfer/target/*
+golang/.idea/*
+.idea/*
 # Dependency directories (remove the comment below to include it)
 # vendor/
