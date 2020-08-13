@@ -24,7 +24,6 @@ import java.math.BigInteger;
 import java.util.List;
 
 import static java.lang.String.format;
-import static org.web3j.crypto.Keys.toChecksumAddress;
 
 public class Transfer {
     public static final String BTCBContract = "0x807D4de360d1FE2132AB778797984E0615193644";
@@ -34,13 +33,13 @@ public class Transfer {
 
     private static final Log logger = LogFactory.getLog(Transfer.class);
 
-    BinanceDexApiNodeClient bcClient;
+    public BinanceDexApiNodeClient bcClient;
 
-    Wallet wallet;
+    public Wallet wallet;
 
-    Credentials credentials;
+    public Credentials credentials;
 
-    Web3j web3j;
+    public Web3j web3j;
 
     public Transfer(BinanceDexApiNodeClient bcClient, Wallet wallet, Credentials credentials, Web3j web3j) {
         this.bcClient = bcClient;
@@ -62,7 +61,7 @@ public class Transfer {
         Token token = new Token("BNB", 10000L);
         long expireTime = System.currentTimeMillis() + 1000 * 60 * 10; // 10 minutes later
         TransactionOption options = new TransactionOption("", 0, null);
-        List<TransactionMetadata> result = bcClient.transferOut(toChecksumAddress(credentials.getAddress()), token, expireTime / 1000, wallet, options, true);
+        List<TransactionMetadata> result = bcClient.transferOut(credentials.getAddress(), token, expireTime / 1000, wallet, options, true);
         logger.info(format("Binance Chain, txHash: https://testnet-explorer.binance.org/tx/%s", result.get(0).getHash()));
 
         Thread.sleep(5 * 1000);
@@ -89,7 +88,7 @@ public class Transfer {
         Token token = new Token("BTCB-AFD", 10000L);
         long expireTime = System.currentTimeMillis() + 1000 * 60 * 10; // 10 minutes later
         TransactionOption options = new TransactionOption("", 0, null);
-        List<TransactionMetadata> result = bcClient.transferOut(toChecksumAddress(credentials.getAddress()), token, expireTime / 1000, wallet, options, true);
+        List<TransactionMetadata> result = bcClient.transferOut(credentials.getAddress(), token, expireTime / 1000, wallet, options, true);
         logger.info(format("Binance Chain txHash: https://testnet-explorer.binance.org/tx/%s", result.get(0).getHash()));
 
         Thread.sleep(5 * 1000);
@@ -165,9 +164,9 @@ public class Transfer {
         // Step 2: call transferOut of tokenhub contract
         TokenHub tokenHub = TokenHub.load(TokenHubContract, web3j, credentials, staticGasProvider);
         Bech32AddressValue bech32AddressValue = Bech32AddressValue.fromBech32String(wallet.getAddress());
-        String recpient = "0x"+Hex.encodeHexString(bech32AddressValue.getRaw());
+        String recipient = "0x" + Hex.encodeHexString(bech32AddressValue.getRaw());
         BigInteger expireTime = BigInteger.valueOf(System.currentTimeMillis() / 1000 + 60 * 10); // 10 minutes later
-        String transferOutTxData = tokenHub.transferOut(BTCBContract, recpient, amount, expireTime).encodeFunctionCall();
+        String transferOutTxData = tokenHub.transferOut(BTCBContract, recipient, amount, expireTime).encodeFunctionCall();
         EthSendTransaction ethSendTransferOutTx = transactionManager.sendTransaction(gasPrice, gasLimit, TokenHubContract, transferOutTxData, BigInteger.valueOf(relayFeeToBC));
         logger.info(format("Binance Smart Chain, BEP2E contract transferOut txHash: https://explorer.binance.org/smart-testnet/tx/%s", ethSendTransferOutTx.getTransactionHash()));
 

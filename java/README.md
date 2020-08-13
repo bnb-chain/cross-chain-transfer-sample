@@ -23,7 +23,7 @@
 3. Install `java-sdk` to maven local
 
     ```shell script
-    mvn install
+    mvn install -DskipTests
     ```
    
 ## Run Samples
