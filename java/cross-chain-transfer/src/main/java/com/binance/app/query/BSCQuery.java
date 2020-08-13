@@ -1,6 +1,6 @@
 package com.binance.app.query;
 
-import com.binance.app.contract.BTCB;
+import com.binance.app.contract.BEP2E;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
@@ -13,8 +13,6 @@ import java.math.BigInteger;
 
 public class BSCQuery {
 
-    public static final String BTCBContract = "0x807D4de360d1FE2132AB778797984E0615193644";
-
     public Web3j web3b;
 
     public BSCQuery(Web3j web3b) {
@@ -26,13 +24,12 @@ public class BSCQuery {
         return balance.getBalance();
     }
 
-    public BigInteger queryBTCBBalance(String address) throws Exception {
+    public BigInteger queryBEP2EBBalance(String contractAddr, String address) throws Exception {
         EthGasPrice gasPrice = web3b.ethGasPrice().send();
         TransactionManager transactionManager = new ReadonlyTransactionManager(web3b, address);
         StaticGasProvider staticGasProvider = new StaticGasProvider(gasPrice.getGasPrice(), BigInteger.valueOf(4700000));
-
-        BTCB btcb = BTCB.load(BTCBContract, web3b, transactionManager, staticGasProvider);
-        return btcb.balanceOf(address).send();
+        BEP2E bep2e = BEP2E.load(contractAddr, web3b, transactionManager, staticGasProvider);
+        return bep2e.balanceOf(address).send();
     }
 
 }
