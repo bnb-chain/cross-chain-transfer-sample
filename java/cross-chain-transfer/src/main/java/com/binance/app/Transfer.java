@@ -24,6 +24,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import static java.lang.String.format;
+import static org.web3j.crypto.Keys.toChecksumAddress;
 
 public class Transfer {
     public static final String BTCBContract = "0x807D4de360d1FE2132AB778797984E0615193644";
@@ -61,7 +62,7 @@ public class Transfer {
         Token token = new Token("BNB", 10000L);
         long expireTime = System.currentTimeMillis() + 1000 * 60 * 10; // 10 minutes later
         TransactionOption options = new TransactionOption("", 0, null);
-        List<TransactionMetadata> result = bcClient.transferOut("0x4Cd8941450130C70F81F720dB468fC9345C83E85", token, expireTime / 1000, wallet, options, true);
+        List<TransactionMetadata> result = bcClient.transferOut(toChecksumAddress(credentials.getAddress()), token, expireTime / 1000, wallet, options, true);
         logger.info(format("Binance Chain, txHash: https://testnet-explorer.binance.org/tx/%s", result.get(0).getHash()));
 
         Thread.sleep(5 * 1000);
@@ -88,7 +89,7 @@ public class Transfer {
         Token token = new Token("BTCB-AFD", 10000L);
         long expireTime = System.currentTimeMillis() + 1000 * 60 * 10; // 10 minutes later
         TransactionOption options = new TransactionOption("", 0, null);
-        List<TransactionMetadata> result = bcClient.transferOut("0x4Cd8941450130C70F81F720dB468fC9345C83E85", token, expireTime / 1000, wallet, options, true);
+        List<TransactionMetadata> result = bcClient.transferOut(toChecksumAddress(credentials.getAddress()), token, expireTime / 1000, wallet, options, true);
         logger.info(format("Binance Chain txHash: https://testnet-explorer.binance.org/tx/%s", result.get(0).getHash()));
 
         Thread.sleep(5 * 1000);
@@ -156,7 +157,7 @@ public class Transfer {
 
         // Step 1: call approve of BEP2E contract to gran allowance to tokenhub contract
         BEP2E bep2e = new BEP2E(BTCBContract, web3j, credentials, staticGasProvider);
-        BigInteger amount = BigInteger.valueOf(10000L);
+        BigInteger amount = BigInteger.valueOf(10000000000L);
         String approveTxData = bep2e.approve(TokenHubContract, amount).encodeFunctionCall();
         EthSendTransaction ethSendApproveTx = transactionManager.sendTransaction(gasPrice, gasLimit, BTCBContract, approveTxData, BigInteger.valueOf(0));
         logger.info(format("Binance Smart Chain, BEP2E contract approve txHash: https://explorer.binance.org/smart-testnet/tx/%s", ethSendApproveTx.getTransactionHash()));
