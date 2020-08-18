@@ -26,7 +26,7 @@ import java.util.List;
 import static java.lang.String.format;
 
 public class Transfer {
-    public static final String BTCBContract = "0x807D4de360d1FE2132AB778797984E0615193644";
+    public static final String BTCBContract = "0x6ce8dA28E2f864420840cF74474eFf5fD80E65B8";
     public static final String TokenHubContract = "0x0000000000000000000000000000000000001004";
     public static final String BNBContract = "0x0000000000000000000000000000000000000000";
     public static final long relayFeeToBC = 10000000000000000L;
@@ -77,7 +77,7 @@ public class Transfer {
 
     public void transferBEP2EToBSC() throws Exception {
         BCQuery bcQuery = new BCQuery(bcClient);
-        Token btcbBalanceBC = bcQuery.getBalance("BTCB-AFD", wallet.getAddress());
+        Token btcbBalanceBC = bcQuery.getBalance("BTCB-101", wallet.getAddress());
         logger.info(format("Binance Chain, Address %s, BNB Balance: %s", wallet.getAddress(), btcbBalanceBC.getAmount()));
 
         BSCQuery bscQuery = new BSCQuery(web3j);
@@ -85,7 +85,7 @@ public class Transfer {
         logger.info(format("Binance Smart Chain, Address %s, BNB Balance: %s", credentials.getAddress(), btcbBalanceBSC.toString()));
 
         //Transfer BNB from Binance Chain to Binance Smart Chain
-        Token token = new Token("BTCB-AFD", 10000L);
+        Token token = new Token("BTCB-101", 10000L);
         long expireTime = System.currentTimeMillis() + 1000 * 60 * 10; // 10 minutes later
         TransactionOption options = new TransactionOption("", 0, null);
         List<TransactionMetadata> result = bcClient.transferOut(credentials.getAddress(), token, expireTime / 1000, wallet, options, true);
@@ -93,7 +93,7 @@ public class Transfer {
 
         Thread.sleep(5 * 1000);
 
-        btcbBalanceBC = bcQuery.getBalance("BTCB-AFD", wallet.getAddress());
+        btcbBalanceBC = bcQuery.getBalance("BTCB-101", wallet.getAddress());
         logger.info(format("Binance Chain, Address %s, BNB Balance: %s", wallet.getAddress(), btcbBalanceBC.getAmount()));
 
         Thread.sleep(5 * 1000);
@@ -141,12 +141,12 @@ public class Transfer {
 
     public void transferBEP2EToBC() throws Exception {
         BCQuery bcQuery = new BCQuery(bcClient);
-        Token btcbBalanceBC = bcQuery.getBalance("BTCB-AFD", wallet.getAddress());
-        logger.info(format("Binance Chain, Address %s, BTCB-AFD Balance: %s", wallet.getAddress(), btcbBalanceBC.getAmount()));
+        Token btcbBalanceBC = bcQuery.getBalance("BTCB-101", wallet.getAddress());
+        logger.info(format("Binance Chain, Address %s, BTCB-101 Balance: %s", wallet.getAddress(), btcbBalanceBC.getAmount()));
 
         BSCQuery bscQuery = new BSCQuery(web3j);
         BigInteger btcbBalanceBSC = bscQuery.queryBEP2EBBalance(BTCBContract, credentials.getAddress());
-        logger.info(format("Binance Smart Chain, Address %s, BTCB-AFD Balance: %s", credentials.getAddress(), btcbBalanceBSC.toString()));
+        logger.info(format("Binance Smart Chain, Address %s, BTCB-101 Balance: %s", credentials.getAddress(), btcbBalanceBSC.toString()));
 
         //Transfer BTCB from Binance Smart Chain to Binance Chain
         BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
@@ -173,12 +173,12 @@ public class Transfer {
         Thread.sleep(5 * 1000);
 
         btcbBalanceBSC = bscQuery.queryBEP2EBBalance(BTCBContract, credentials.getAddress());
-        logger.info(format("Binance Smart Chain, Address %s, BTCB-AFD Balance: %s", credentials.getAddress(), btcbBalanceBSC.toString()));
+        logger.info(format("Binance Smart Chain, Address %s, BTCB-101 Balance: %s", credentials.getAddress(), btcbBalanceBSC.toString()));
 
         Thread.sleep(20 * 1000);
 
-        btcbBalanceBC = bcQuery.getBalance("BTCB-AFD", wallet.getAddress());
-        logger.info(format("Binance Chain, Address %s, BTCB-AFD Balance: %s", wallet.getAddress(), btcbBalanceBC.getAmount()));
+        btcbBalanceBC = bcQuery.getBalance("BTCB-101", wallet.getAddress());
+        logger.info(format("Binance Chain, Address %s, BTCB-101 Balance: %s", wallet.getAddress(), btcbBalanceBC.getAmount()));
 
     }
 
