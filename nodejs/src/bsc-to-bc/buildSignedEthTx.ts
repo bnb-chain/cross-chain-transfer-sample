@@ -1,9 +1,8 @@
 import Web3 from 'web3';
 import Common from 'ethereumjs-common';
 import { Transaction } from 'ethereumjs-tx';
-import { Big, BigSource } from 'big.js';
 
-const ETH_GAS_LIMIT = '200000';
+export const approve = async ({}) => {};
 
 export const buildSignedBscTx = async ({
   privateKey,
@@ -13,7 +12,7 @@ export const buildSignedBscTx = async ({
 }: {
   privateKey: string;
   toAddress: string;
-  amount: BigSource;
+  amount: number | string;
   data?: string;
 }) => {
   const ethConfig = {
@@ -33,18 +32,21 @@ export const buildSignedBscTx = async ({
     privateKey
   );
 
-  console.log(fromAddress);
-
   const txCount = await web3.eth.getTransactionCount(fromAddress);
   const gasPrice = await web3.eth.getGasPrice();
+  const estimatedGas = await web3.eth.estimateGas({
+    to: toAddress,
+    data,
+    value: amount,
+    from: fromAddress,
+  });
+
   const rawTx = {
     nonce: web3.utils.toHex(txCount),
     gasPrice: web3.utils.toHex(gasPrice),
-    gasLimit: web3.utils.toHex(ETH_GAS_LIMIT),
+    gasLimit: web3.utils.toHex(estimatedGas),
     to: toAddress,
-    value: web3.utils.toHex(
-      web3.utils.toWei(new Big(amount).toFixed(), 'ether')
-    ),
+    value: web3.utils.toHex(amount),
     data: web3.utils.toHex(data),
   };
 
@@ -60,6 +62,7 @@ export const buildSignedBscTx = async ({
         }
       : ethConfig
   );
+
   tx.sign(Buffer.from(privateKey, 'hex'));
 
   return `0x${tx.serialize().toString('hex')}`;

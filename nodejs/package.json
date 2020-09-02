@@ -36,6 +36,8 @@
     "@binance-chain/javascript-sdk": "^4.1.0",
     "bech32-buffer": "^0.1.2",
     "big.js": "^5.2.2",
-    "web3": "^1.2.11"
+    "human-standard-token-abi": "^2.0.0",
+    "web3": "^1.2.11",
+    "web3-utils": "^1.2.11"
   }
 }

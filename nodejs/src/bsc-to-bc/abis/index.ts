@@ -54,7 +54,7 @@ export const tokenHubAbi: AbiItem[] = [
       {
         indexed: false,
         internalType: 'address',
-        name: 'bep2eAddr',
+        name: 'bep20Addr',
         type: 'address',
       },
       {
@@ -85,7 +85,7 @@ export const tokenHubAbi: AbiItem[] = [
       {
         indexed: false,
         internalType: 'address',
-        name: 'bep2eAddr',
+        name: 'bep20Addr',
         type: 'address',
       },
       {
@@ -135,7 +135,7 @@ export const tokenHubAbi: AbiItem[] = [
       {
         indexed: false,
         internalType: 'address',
-        name: 'bep2eAddr',
+        name: 'bep20Addr',
         type: 'address',
       },
       {
@@ -160,7 +160,7 @@ export const tokenHubAbi: AbiItem[] = [
       {
         indexed: false,
         internalType: 'address',
-        name: 'bep2eAddr',
+        name: 'bep20Addr',
         type: 'address',
       },
       {
@@ -173,6 +173,12 @@ export const tokenHubAbi: AbiItem[] = [
         indexed: false,
         internalType: 'uint256',
         name: 'amount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'relayFee',
         type: 'uint256',
       },
     ],
@@ -371,7 +377,7 @@ export const tokenHubAbi: AbiItem[] = [
   {
     constant: true,
     inputs: [],
-    name: 'MAXIMUM_BEP2E_SYMBOL_LEN',
+    name: 'MAXIMUM_BEP20_SYMBOL_LEN',
     outputs: [
       {
         internalType: 'uint8',
@@ -401,7 +407,7 @@ export const tokenHubAbi: AbiItem[] = [
   {
     constant: true,
     inputs: [],
-    name: 'MAX_GAS_FOR_CALLING_BEP2E',
+    name: 'MAX_GAS_FOR_CALLING_BEP20',
     outputs: [
       {
         internalType: 'uint256',
@@ -416,7 +422,22 @@ export const tokenHubAbi: AbiItem[] = [
   {
     constant: true,
     inputs: [],
-    name: 'MINIMUM_BEP2E_SYMBOL_LEN',
+    name: 'MAX_GAS_FOR_TRANSFER_BNB',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'MINIMUM_BEP20_SYMBOL_LEN',
     outputs: [
       {
         internalType: 'uint8',
@@ -437,6 +458,21 @@ export const tokenHubAbi: AbiItem[] = [
         internalType: 'address',
         name: '',
         type: 'address',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'REWARD_UPPER_LIMIT',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
     payable: false,
@@ -497,6 +533,21 @@ export const tokenHubAbi: AbiItem[] = [
         internalType: 'address',
         name: '',
         type: 'address',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'TEN_DECIMALS',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
     payable: false,
@@ -684,42 +735,6 @@ export const tokenHubAbi: AbiItem[] = [
     type: 'function',
   },
   {
-    constant: false,
-    inputs: [
-      {
-        internalType: 'address[]',
-        name: 'recipientAddrs',
-        type: 'address[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'amounts',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'address[]',
-        name: 'refundAddrs',
-        type: 'address[]',
-      },
-      {
-        internalType: 'uint64',
-        name: 'expireTime',
-        type: 'uint64',
-      },
-    ],
-    name: 'batchTransferOutBNB',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    payable: true,
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
     constant: true,
     inputs: [
       {
@@ -728,7 +743,7 @@ export const tokenHubAbi: AbiItem[] = [
         type: 'address',
       },
     ],
-    name: 'bep2eContractDecimals',
+    name: 'bep20ContractDecimals',
     outputs: [
       {
         internalType: 'uint256',
@@ -738,31 +753,6 @@ export const tokenHubAbi: AbiItem[] = [
     ],
     payable: false,
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: 'bytes32',
-        name: 'bep2Symbol',
-        type: 'bytes32',
-      },
-      {
-        internalType: 'address',
-        name: 'contractAddr',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'decimals',
-        type: 'uint256',
-      },
-    ],
-    name: 'bindToken',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -778,6 +768,30 @@ export const tokenHubAbi: AbiItem[] = [
     ],
     payable: false,
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'relayFee',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [],
+    name: 'init',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -808,92 +822,8 @@ export const tokenHubAbi: AbiItem[] = [
   },
   {
     constant: true,
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'contractAddr',
-        type: 'address',
-      },
-    ],
-    name: 'getBep2SymbolByContractAddr',
-    outputs: [
-      {
-        internalType: 'bytes32',
-        name: '',
-        type: 'bytes32',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'contractAddr',
-        type: 'address',
-      },
-    ],
-    name: 'getBoundBep2Symbol',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: 'string',
-        name: 'bep2Symbol',
-        type: 'string',
-      },
-    ],
-    name: 'getBoundContract',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: 'bytes32',
-        name: 'bep2Symbol',
-        type: 'bytes32',
-      },
-    ],
-    name: 'getContractAddrByBEP2Symbol',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
     inputs: [],
-    name: 'getRelayFee',
+    name: 'getMiniRelayFee',
     outputs: [
       {
         internalType: 'uint256',
@@ -903,6 +833,32 @@ export const tokenHubAbi: AbiItem[] = [
     ],
     payable: false,
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        internalType: 'uint8',
+        name: 'channelId',
+        type: 'uint8',
+      },
+      {
+        internalType: 'bytes',
+        name: 'msgBytes',
+        type: 'bytes',
+      },
+    ],
+    name: 'handleSynPackage',
+    outputs: [
+      {
+        internalType: 'bytes',
+        name: '',
+        type: 'bytes',
+      },
+    ],
+    payable: false,
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -949,56 +905,6 @@ export const tokenHubAbi: AbiItem[] = [
     constant: false,
     inputs: [
       {
-        internalType: 'uint8',
-        name: 'channelId',
-        type: 'uint8',
-      },
-      {
-        internalType: 'bytes',
-        name: 'msgBytes',
-        type: 'bytes',
-      },
-    ],
-    name: 'handleSynPackage',
-    outputs: [
-      {
-        internalType: 'bytes',
-        name: '',
-        type: 'bytes',
-      },
-    ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: 'init',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'relayFee',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
         internalType: 'address',
         name: 'contractAddr',
         type: 'address',
@@ -1035,20 +941,36 @@ export const tokenHubAbi: AbiItem[] = [
     constant: false,
     inputs: [
       {
-        internalType: 'bytes32',
-        name: 'bep2Symbol',
-        type: 'bytes32',
+        internalType: 'address[]',
+        name: 'recipientAddrs',
+        type: 'address[]',
       },
       {
-        internalType: 'address',
-        name: 'contractAddr',
-        type: 'address',
+        internalType: 'uint256[]',
+        name: 'amounts',
+        type: 'uint256[]',
+      },
+      {
+        internalType: 'address[]',
+        name: 'refundAddrs',
+        type: 'address[]',
+      },
+      {
+        internalType: 'uint64',
+        name: 'expireTime',
+        type: 'uint64',
       },
     ],
-    name: 'unbindToken',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
+    name: 'batchTransferOutBNB',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    payable: true,
+    stateMutability: 'payable',
     type: 'function',
   },
   {
@@ -1070,5 +992,397 @@ export const tokenHubAbi: AbiItem[] = [
     payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: 'bep2Symbol',
+        type: 'bytes32',
+      },
+    ],
+    name: 'getContractAddrByBEP2Symbol',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'contractAddr',
+        type: 'address',
+      },
+    ],
+    name: 'getBep2SymbolByContractAddr',
+    outputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: 'bep2Symbol',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'address',
+        name: 'contractAddr',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'decimals',
+        type: 'uint256',
+      },
+    ],
+    name: 'bindToken',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: 'bep2Symbol',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'address',
+        name: 'contractAddr',
+        type: 'address',
+      },
+    ],
+    name: 'unbindToken',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'bep2Symbol',
+        type: 'string',
+      },
+    ],
+    name: 'getBoundContract',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'contractAddr',
+        type: 'address',
+      },
+    ],
+    name: 'getBoundBep2Symbol',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+];
+
+export const bep20Abi: AbiItem[] = [
+  {
+    type: 'constructor',
+    stateMutability: 'nonpayable',
+    payable: false,
+    inputs: [],
+  },
+  {
+    type: 'event',
+    name: 'Approval',
+    inputs: [
+      {
+        type: 'address',
+        name: 'owner',
+        internalType: 'address',
+        indexed: true,
+      },
+      {
+        type: 'address',
+        name: 'spender',
+        internalType: 'address',
+        indexed: true,
+      },
+      {
+        type: 'uint256',
+        name: 'value',
+        internalType: 'uint256',
+        indexed: false,
+      },
+    ],
+    anonymous: false,
+  },
+  {
+    type: 'event',
+    name: 'OwnershipTransferred',
+    inputs: [
+      {
+        type: 'address',
+        name: 'previousOwner',
+        internalType: 'address',
+        indexed: true,
+      },
+      {
+        type: 'address',
+        name: 'newOwner',
+        internalType: 'address',
+        indexed: true,
+      },
+    ],
+    anonymous: false,
+  },
+  {
+    type: 'event',
+    name: 'Transfer',
+    inputs: [
+      {
+        type: 'address',
+        name: 'from',
+        internalType: 'address',
+        indexed: true,
+      },
+      {
+        type: 'address',
+        name: 'to',
+        internalType: 'address',
+        indexed: true,
+      },
+      {
+        type: 'uint256',
+        name: 'value',
+        internalType: 'uint256',
+        indexed: false,
+      },
+    ],
+    anonymous: false,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'uint8', name: '', internalType: 'uint8' }],
+    name: '_decimals',
+    inputs: [],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'string', name: '', internalType: 'string' }],
+    name: '_name',
+    inputs: [],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'string', name: '', internalType: 'string' }],
+    name: '_symbol',
+    inputs: [],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'uint256', name: '', internalType: 'uint256' }],
+    name: 'allowance',
+    inputs: [
+      { type: 'address', name: 'owner', internalType: 'address' },
+      { type: 'address', name: 'spender', internalType: 'address' },
+    ],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'nonpayable',
+    payable: false,
+    outputs: [{ type: 'bool', name: '', internalType: 'bool' }],
+    name: 'approve',
+    inputs: [
+      { type: 'address', name: 'spender', internalType: 'address' },
+      { type: 'uint256', name: 'amount', internalType: 'uint256' },
+    ],
+    constant: false,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'uint256', name: '', internalType: 'uint256' }],
+    name: 'balanceOf',
+    inputs: [{ type: 'address', name: 'account', internalType: 'address' }],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'uint256', name: '', internalType: 'uint256' }],
+    name: 'decimals',
+    inputs: [],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'nonpayable',
+    payable: false,
+    outputs: [{ type: 'bool', name: '', internalType: 'bool' }],
+    name: 'decreaseAllowance',
+    inputs: [
+      { type: 'address', name: 'spender', internalType: 'address' },
+      {
+        type: 'uint256',
+        name: 'subtractedValue',
+        internalType: 'uint256',
+      },
+    ],
+    constant: false,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'address', name: '', internalType: 'address' }],
+    name: 'getOwner',
+    inputs: [],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'nonpayable',
+    payable: false,
+    outputs: [{ type: 'bool', name: '', internalType: 'bool' }],
+    name: 'increaseAllowance',
+    inputs: [
+      { type: 'address', name: 'spender', internalType: 'address' },
+      { type: 'uint256', name: 'addedValue', internalType: 'uint256' },
+    ],
+    constant: false,
+  },
+  {
+    type: 'function',
+    stateMutability: 'nonpayable',
+    payable: false,
+    outputs: [{ type: 'bool', name: '', internalType: 'bool' }],
+    name: 'mint',
+    inputs: [{ type: 'uint256', name: 'amount', internalType: 'uint256' }],
+    constant: false,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'address', name: '', internalType: 'address' }],
+    name: 'owner',
+    inputs: [],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'nonpayable',
+    payable: false,
+    outputs: [],
+    name: 'renounceOwnership',
+    inputs: [],
+    constant: false,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'string', name: '', internalType: 'string' }],
+    name: 'symbol',
+    inputs: [],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'view',
+    payable: false,
+    outputs: [{ type: 'uint256', name: '', internalType: 'uint256' }],
+    name: 'totalSupply',
+    inputs: [],
+    constant: true,
+  },
+  {
+    type: 'function',
+    stateMutability: 'nonpayable',
+    payable: false,
+    outputs: [{ type: 'bool', name: '', internalType: 'bool' }],
+    name: 'transfer',
+    inputs: [
+      { type: 'address', name: 'recipient', internalType: 'address' },
+      { type: 'uint256', name: 'amount', internalType: 'uint256' },
+    ],
+    constant: false,
+  },
+  {
+    type: 'function',
+    stateMutability: 'nonpayable',
+    payable: false,
+    outputs: [{ type: 'bool', name: '', internalType: 'bool' }],
+    name: 'transferFrom',
+    inputs: [
+      { type: 'address', name: 'sender', internalType: 'address' },
+      { type: 'address', name: 'recipient', internalType: 'address' },
+      { type: 'uint256', name: 'amount', internalType: 'uint256' },
+    ],
+    constant: false,
+  },
+  {
+    type: 'function',
+    stateMutability: 'nonpayable',
+    payable: false,
+    outputs: [],
+    name: 'transferOwnership',
+    inputs: [{ type: 'address', name: 'newOwner', internalType: 'address' }],
+    constant: false,
   },
 ];
