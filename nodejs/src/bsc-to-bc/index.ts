@@ -109,7 +109,6 @@ export const transferFromBscToBbc = async ({
   if (asset.networkSymbol === 'BNB') {
     value = value.add(formatAmount({ amount, asset }));
   }
-  console.log(value.toString());
   const sendTx = await buildSignedBscTx({
     data: transferOutABI,
     privateKey,

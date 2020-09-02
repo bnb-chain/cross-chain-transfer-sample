@@ -30,7 +30,7 @@ describe('Transfer', () => {
     };
 
     const toAddress = 'tbnb1hgm0p7khfk85zpz5v0j8wnej3a90w709zzlffd';
-    const amount = 0.0001;
+    const amount = 5;
     const expireTime = Math.ceil(Date.now() / 1000 + 600);
     const result = await transferFromBscToBbc({
       privateKey,
