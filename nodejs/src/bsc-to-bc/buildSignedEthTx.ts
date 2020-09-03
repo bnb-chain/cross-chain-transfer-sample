@@ -2,8 +2,6 @@ import Web3 from 'web3';
 import Common from 'ethereumjs-common';
 import { Transaction } from 'ethereumjs-tx';
 
-export const approve = async ({}) => {};
-
 export const buildSignedBscTx = async ({
   privateKey,
   toAddress,
