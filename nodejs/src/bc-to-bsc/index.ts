@@ -1,7 +1,7 @@
 import { BncClient, crypto } from '@binance-chain/javascript-sdk';
 
-export const mnemonic =
-  'offer caution gift cross surge pretty orange during eye soldier popular holiday mention east eight office fashion ill parrot vault rent devote earth cousin';
+// use your own test menmonic
+export const mnemonic = 'process.env.mnemonic';
 
 export const getClient = async (
   url = 'https://testnet-dex-asiapacific.binance.org'

@@ -7,7 +7,6 @@ describe('Transfer', () => {
   });
 
   it('transfer from bc to bsc', async () => {
-    // const toAddress = '0x52D38EbFa6bA65Cbc4a2c6c15044b06274E1fDdc';
     const toAddress = '0x2Ed7c4BAab7950445550b889C3014203494c6de0';
     const from = 'tbnb1hgm0p7khfk85zpz5v0j8wnej3a90w709zzlffd';
     const result = await transferFromBcToBSc({

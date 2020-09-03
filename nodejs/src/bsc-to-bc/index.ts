@@ -1,7 +1,6 @@
 import { decode } from 'bech32-buffer';
 import Web3 from 'web3';
 import { Big } from 'big.js';
-// import abi from 'human-standard-token-abi';
 import { tokenHubAbi, tokenHubContractAddress, bep20Abi } from './abis';
 
 import { buildSignedBscTx } from './buildSignedEthTx';
@@ -23,14 +22,6 @@ export const formatAmount = ({
 }): string => {
   return new Big(amount).times(`1e${asset.decimals}`).toFixed();
 };
-
-// const hexToBytes = (hex: string) => {
-//   let bytes = [];
-//   for (let c = 0; c < hex.length; c += 2) {
-//     bytes.push(parseInt(hex.substr(c, 2), 16));
-//   }
-//   return Buffer.from(bytes);
-// };
 
 export const approve = async ({
   web3,
